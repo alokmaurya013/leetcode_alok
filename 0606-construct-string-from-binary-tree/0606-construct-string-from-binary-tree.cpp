@@ -16,24 +16,21 @@ public:
         if(!root){
             return;
         }
+        s+='(';
         s+=to_string(root->val);
-        if(root->left){
-            s.push_back('(');
-              prefix(root->left);
-            s.push_back(')');
-         }
+        prefix(root->left);
         if(root->right){
             if(!root->left){
                 s+="()";
             }
-            s.push_back('(');
-           prefix(root->right);
-            s.push_back(')');
+            prefix(root->right);
         }
-    
+        s+=')';
     }
     string tree2str(TreeNode* root) {
         prefix(root);
-        return s;
+        int n=s.size();
+        string t=s.substr(1,n-2);
+        return t;
     }
 };
