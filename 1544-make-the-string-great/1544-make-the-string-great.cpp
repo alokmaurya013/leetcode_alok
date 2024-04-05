@@ -1,6 +1,6 @@
 class Solution {
 public:
-    char a[26]={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+  
     string makeGood(string s) {
         int n=s.length(),isupper=0;
         for(int i=0;i<n;i++){
@@ -23,7 +23,7 @@ public:
             char t=st.top();
         
             if(t>='a'&&t<='z'){
-                if(s[i]==a[t-'a']){
+                if(t==s[i]-'A'+'a'){
                     st.pop();
                 }else{
                     st.push(s[i]);
