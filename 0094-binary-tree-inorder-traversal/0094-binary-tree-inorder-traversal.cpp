@@ -19,9 +19,23 @@ public:
         v.push_back(root->val);
         inorder(root->right,v);
     }
+    void iterative(TreeNode* temp,vector<int>&v){
+        stack<TreeNode*>st;
+        while(!st.empty()||temp){
+            while(temp){
+                st.push(temp);
+                temp=temp->left;
+            }
+            temp=st.top();
+            st.pop();
+            v.push_back(temp->val);
+            temp=temp->right;
+        }
+    }
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int>v;
-        inorder(root,v);
+       // inorder(root,v);
+        iterative(root,v);
         return v;
     }
 };
