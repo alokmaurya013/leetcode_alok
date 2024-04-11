@@ -14,16 +14,16 @@ public:
                 v.pop_back();
                 k--;
             }
-        string t="";
+        num="";
          for(auto i:v){
-                if(t.empty() && i=='0'){
+                if(num.empty() && i=='0'){
                     continue;
                 }
-                t+=i;
+                num+=i;
             }
-        if(t.size()==0){
+        if(num.size()==0){
             return "0";
         }
-        return t;
+        return num;
     }
 };
