@@ -33,6 +33,36 @@ public:
             return false;
         }
     }
+    bool bfs2(vector<vector<int>>&adj,int i,vector<int>&vis){
+        vis[i]=1;
+        queue<pair<int,int>>q;
+        q.push({i,-1});
+        while(!q.empty()){
+            int j=q.front().first;
+            int pr=q.front().second;
+            q.pop();
+            for(auto v:adj[j]){
+                if(!vis[v]){
+                    vis[v]=1;
+                    q.push({v,j});
+                }else if(v!=pr){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+        bool undirectedBFS(int numCourses,vector<vector<int>>&adj){
+        vector<int>vis(numCourses,0);
+        for(int i=0;i<numCourses;i++){
+            if(!vis[i]){
+                if(bfs2(adj,i,vis)==true){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     bool dfs1(vector<vector<int>>&adj,int i,vector<int>&vis,int pr){
         vis[i]=1;
         for(auto j:adj[i]){
@@ -46,7 +76,8 @@ public:
         }
         return false;
     }
-    bool dfs(int numCourses,vector<vector<int>>&adj){
+
+    bool undirectedDFS(int numCourses,vector<vector<int>>&adj){
         vector<int>vis(numCourses,0);
         for(int i=0;i<numCourses;i++){
             if(!vis[i]){
@@ -72,7 +103,7 @@ public:
         st[i]=false;
         return false;
     }
-    bool detectCycledfs(int numCourses,vector<vector<int>>&adj){
+    bool directdfs(int numCourses,vector<vector<int>>&adj){
         vector<bool>vis(numCourses,false);
         vector<bool>st(numCourses,false);
         for(int i=0;i<numCourses;i++){
@@ -88,7 +119,7 @@ public:
         for(auto e:prerequisites){
             adj[e[1]].push_back(e[0]);
         }
-       return detectCycledfs(numCourses,adj);   
+       return directdfs(numCourses,adj);   
     }
      bool undirected(int numCourses,vector<vector<int>>&prerequisites){
                 int n=prerequisites.size();
@@ -97,7 +128,7 @@ public:
             adj[e[1]].push_back(e[0]);
             adj[e[0]].push_back(e[1]);
         }
-       return dfs(numCourses,adj);   
+       return undirectedDFS(numCourses,adj);   
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
        return directed(numCourses,prerequisites);
