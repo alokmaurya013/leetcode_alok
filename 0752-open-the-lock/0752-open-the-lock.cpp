@@ -11,7 +11,8 @@ public:
         if(vis[0]){
             return -1;
         }
-        q.emplace(0,"0000");
+        //q.emplace(0,"0000");
+        q.push({0,"0000"});
         vis[0]=1;
         while(!q.empty()){
             auto [turn,s]=q.front();
@@ -28,7 +29,7 @@ public:
                     int tmp=stoi(t);
                     if(!vis[tmp]){
                         vis[tmp]=1;
-                        q.emplace(turn+1,t);
+                        q.push({turn+1,t});
                     }
                 }
             }
