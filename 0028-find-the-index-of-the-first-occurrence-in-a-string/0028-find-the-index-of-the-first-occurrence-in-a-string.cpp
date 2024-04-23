@@ -1,6 +1,54 @@
+#define d 31
 class Solution {
 public:
-    
+    int q=INT_MAX;
+    int RabinKarp(string text,string pattern){
+        int m=pattern.size();
+        int n=text.size();
+        int p=0,t=0,h=1;
+        for(int i=0;i<m-1;i++){
+            long long a=d;
+            a=a*h;
+            h=(a)%q;
+        }
+        for(int i=0;i<m;i++){
+            long long a=d,b=d;
+            a=a*p+pattern[i];
+            b=b*t+text[i];
+            p=(a)%q;
+            t=(b)%q;
+        }
+        for(int i=0;i<=n-m;i++){
+            if(t==p){
+                int j=0;
+                for(j=0;j<m;j++){
+                    if(text[i+j]!=pattern[j]){
+                        break;
+                    }
+                }
+                if(j==m){
+                    return i;
+                }
+            }
+             if(i<n-m){
+                long long tt=text[i];
+                 tt=tt*h;
+                 tt=t-tt;
+                 if(tt<0){
+                     tt+=q;
+                 }
+                 tt=tt*d;
+                 tt+=text[i+m];
+                 t=(tt)%q;
+               // t = (d * (t - txt[i] * h) + txt[i + M]) % q;
+ 
+            if (t < 0){
+                t = (t + q);
+            }
+             }   
+        }
+        return -1;
+    }
     void solvelps(string pattern,vector<int>&lps){
         int m=pattern.size();
         int len=0,i=1;
@@ -44,6 +92,8 @@ public:
         return -1;
     }
     int strStr(string text, string pattern) {
-     return kmpSearch(text,pattern);
+    // return kmpSearch(text,pattern);
+        return RabinKarp(text,pattern);
+         
     }  
 };
