@@ -21,6 +21,9 @@ public:
     }
     void iterative(TreeNode* temp,vector<int>&v){
         stack<TreeNode*>st;
+        if(!temp){
+            return ;
+        }
         while(!st.empty()||temp){
             while(temp){
                 st.push(temp);
@@ -32,10 +35,33 @@ public:
             temp=temp->right;
         }
     }
+    void moris(TreeNode* root,vector<int>&v){
+        TreeNode* temp=root;
+        while(temp!=NULL){
+            if(temp->left==NULL){
+                v.push_back(temp->val);
+                temp=temp->right;
+            }else{
+                TreeNode* prev=temp->left;
+                while(prev->right && prev->right!=temp){
+                    prev=prev->right;
+                }
+                if(prev->right==NULL){
+                    prev->right=temp;
+                    temp=temp->left;
+                }else{
+                    prev->right=NULL;
+                    v.push_back(temp->val);
+                    temp=temp->right;
+                }
+            } 
+        }
+    }
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int>v;
        // inorder(root,v);
-        iterative(root,v);
+        //iterative(root,v);
+        moris(root,v);
         return v;
     }
 };
