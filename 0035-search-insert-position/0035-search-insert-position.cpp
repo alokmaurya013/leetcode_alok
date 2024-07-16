@@ -1,8 +1,8 @@
 class Solution {
 public:
      int findFloor(vector<int>&v, int n,int x) {
-         if(x<v[0]){
-             return -1;
+         if(x>v[n-1]){
+             return n;
          }
          int s=0,e=n-1,ind=0;
          while(s<=e){
@@ -11,10 +11,10 @@ public:
                  ind=mid;
                  break;
              }else if(v[mid]<x){
-                 ind=mid;
                  s=mid+1;
              }else{
                  e=mid-1;
+                 ind=mid;
              }
          }
          return ind;
@@ -22,10 +22,6 @@ public:
     int searchInsert(vector<int>&nums, int target) {
       int n=nums.size();
         int i=findFloor(nums,n,target);
-        if(i!=-1&&target==nums[i]){
             return i;
-        }else{
-            return i+1;
-        }
     }
 };
