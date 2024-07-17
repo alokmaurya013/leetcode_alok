@@ -11,15 +11,13 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode *curr=head,*prev=NULL;
-    
-        while(head!=NULL){
-            head=head->next;
-            curr->next=prev;
-            prev=curr;
-            curr=head;
-           // cout<<prev->val<<" "<<curr->val<<endl;
+        if(head==NULL||head->next==NULL){
+            return head;
         }
-        return prev;
+        ListNode *p=reverseList(head->next);
+         ListNode* front=head->next;
+            front->next=head;
+             head->next=NULL;
+        return p;
     }
 };
