@@ -2,7 +2,6 @@ class Solution {
 public:
     void solve(int i,int n,vector<int>&nums,vector<vector<int>>&v,vector<int>r){
         if(i==n){
-           // sort(r.begin(),r.end());
             v.push_back(r);
             return;
         }
@@ -15,8 +14,14 @@ public:
         vector<vector<int>>v;
         vector<int>r;
         int n=nums.size();
-        solve(0,n,nums,v,r);
-       // sort(v.begin(),v.end());
+        for(int i=0;i<(1<<n);i++){
+            v.push_back({});
+            for(int j=0;j<n;j++){
+              if(i&(1<<j)){  
+                  v.back().push_back(nums[j]);
+              }
+            }
+        }
         return v;
     }
 };
