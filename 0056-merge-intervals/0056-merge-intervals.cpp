@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool cmp(const vector<int>&d,const vector<int>&e){
+    bool static cmp(const vector<int>&d,const vector<int>&e){
         if(d[0]==e[0]){
             return d[1]<e[1];
         }
@@ -8,12 +8,7 @@ public:
     }
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         vector<vector<int>>v;
-        sort(intervals.begin(),intervals.end(),[&](const auto& a, const auto& b) {
-           if(a[0]==b[0]){
-               return a[1]<b[1];
-           }
-            return a[0]<b[0];
-        });
+        sort(intervals.begin(),intervals.end(),cmp);
         int a=intervals[0][0],b=intervals[0][1];
         int n=intervals.size();
         for(int i=1;i<n;i++){
