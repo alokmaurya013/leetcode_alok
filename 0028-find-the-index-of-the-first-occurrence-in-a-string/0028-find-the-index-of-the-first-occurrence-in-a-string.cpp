@@ -91,9 +91,47 @@ public:
         }
         return -1;
     }
+    int  Zfunction(string text,string pattern){
+         string temp=pattern+'$'+text;
+         int n=temp.length();
+         vector<int>z(n);
+        getZarr(temp,z);
+        for(int i=0;i<n;i++){
+            if(z[i]==pattern.size()){
+                return i-pattern.size()-1;
+            }
+        }
+        return -1;
+    }
+    void getZarr(string temp,vector<int>&z){
+        int n=temp.length();
+        int L=0,R=0,k;
+        for(int i=1;i<n;i++){
+            if(i>R){
+                L=R=i;
+                while(R<n&&temp[R-L]==temp[R]){
+                    R++;
+                }
+                z[i]=R-L;
+                R--;
+            }else{
+                k=i-L;
+                if(z[k]<R-i+1){
+                    z[i]=z[k];
+                }else{
+                    L=i;
+                    while(R<n&&temp[R-L]==temp[R]){
+                        R++;
+                    }
+                    z[i]=R-L;
+                    R--;
+                }
+            }
+        }
+    }
     int strStr(string text, string pattern) {
     // return kmpSearch(text,pattern);
-        return RabinKarp(text,pattern);
-         
+    //    return RabinKarp(text,pattern);
+        return Zfunction(text,pattern); 
     }  
 };
