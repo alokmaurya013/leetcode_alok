@@ -1,22 +1,22 @@
 class Solution {
-public:
-     unordered_map<string,int>mp;
-    void stringMap(string s){
-        stringstream ss(s);
-        string word;
-        while(ss>>word){
-            mp[word]++;
-        }
+     
+    void stringMap(String[] word,HashMap<String,Integer>mp){
+       for(String w:word){
+           mp.put(w,mp.getOrDefault(w,0)+1);
+       }
     }
-    vector<string> uncommonFromSentences(string s1, string s2) {
-        vector<string>res;
-       stringMap(s1);
-        stringMap(s2);
-        for(auto s:mp){
-            if(s.second==1){
-               res.push_back(s.first); 
+    public String[] uncommonFromSentences(String s1, String s2) {
+         ArrayList<String>res=new ArrayList<>();
+        String[] word1=s1.split(" ");
+        String[] word2=s2.split(" ");
+         HashMap<String,Integer>mp=new HashMap<>();
+       stringMap(word1,mp);
+        stringMap(word2,mp);
+        for(String s:mp.keySet()){
+            if(mp.get(s)==1){
+               res.add(s); 
             }
         }
-        return res;
+        return res.toArray(new String[res.size()]);
     }
-};
+}
