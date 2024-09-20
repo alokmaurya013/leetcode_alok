@@ -1,14 +1,12 @@
 class Solution {
 public:
-    
     string shortestPalindrome(string s) {
         string str=s;
         reverse(str.begin(),str.end());
         str=s+'$'+str;
         int n=str.size();
-        vector<int>lps(n);
-        lps[0]=0;
         int i=1,j=0;
+        vector<int>lps(n);
         while(i<n){
             if(str[i]==str[j]){
                 j++;
@@ -23,7 +21,7 @@ public:
             }
         }
         i=lps[n-1];
-        str=s.substr(i,s.size());
+        str=s.substr(i,n);
         reverse(str.begin(),str.end());
         return str+s;
     }
